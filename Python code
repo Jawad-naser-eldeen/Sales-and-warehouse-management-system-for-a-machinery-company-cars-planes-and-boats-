@@ -1,0 +1,98 @@
+import random as rr
+class Vehicle:
+    vehicles = ["1. Cars", "2. Plans", "3. Jetski"]
+    
+    def __init__(self, name, brand, model, year, color):
+        self.name = name
+        self.brand = brand
+        self.model = model
+        self.year = year
+        self.color = color
+        self.available = True
+
+    def buy(self):
+        if self.available:
+            self.available = False
+            print("{} has been sold.".format(self.name))
+        else:
+            print("{} is not available.".format(self.name))
+
+    def __str__(self):
+        status = "available" if self.available else "not available"
+        return "Vehicle: {} {} {}\t\tYear: {}\tColor: {}\tStatus: {}.".format(self.brand, self.model, self.name, self.year, self.color, status)
+
+class Plans(Vehicle):
+    def __init__(self, name, brand, model, year, capacity):
+        super().__init__(name, brand, model, year, "N/A")
+        self.capacity = capacity
+
+    def __str__(self):
+        status = "available" if self.available else "not available"
+        return "Plane: {} {} {}\t\tYear: {}\tCapacity: {}\tStatus: {}.".format(self.brand, self.model, self.name, self.year, self.capacity, status)
+
+class Jetski(Vehicle):
+    def __init__(self, name, brand, model, year, engine_type):
+        super().__init__(name, brand, model, year, "N/A")
+        self.engine_type = engine_type
+
+    def __str__(self):
+        status = "available" if self.available else "not available"
+        return "Jetski: {} {} {}\t\tYear: {}\tEngine Type: {}\tStatus: {}.".format(self.brand, self.model, self.name, self.year, self.engine_type, status)
+
+class Customer:
+    def __init__(self, name, email, phone, salary):
+        self.name = name
+        self.email = email
+        self.phone = phone
+        self.salary = salary
+
+class Purchase:
+    def __init__(self, customer, vehicle):
+        self.customer = customer
+        self.vehicle = vehicle
+
+    def process_purchase(self):
+        print(f"Processing purchase for {self.customer.name}")
+        self.vehicle.buy()
+
+    def __str__(self):
+        return f"Purchase: {self.customer.name} bought {self.vehicle.name}"
+
+class PurchaseHistory:
+    def __init__(self):
+        self.history = []
+
+    def add_purchase(self, purchase):
+        self.history.append(purchase)
+
+    def print_history(self):
+        for purchase in self.history:
+            print(purchase)
+
+car1 = Vehicle("1. BMW", "BMW", "M3", 2022, "Black")
+car2 = Vehicle("2. Porsche", "Porsche", "911", 2023, "Red")
+car3 = Vehicle("3. Audi", "Audi", "A8", 2021, "White")
+car4 = Vehicle("4. Kia", "Kia", "Sorento", 2020, "Blue")
+plane1 = Plans("1. Boeing777", "Boeing", "777", 2018, "396 passengers")
+plane2 = Plans("2. Boeing737", "Boeing", "737", 2017, "178 passengers")
+plane3 = Plans("3. Boeing747", "Boeing", "747", 2019, "524 passengers")
+jetski1 = Jetski("1. Yamaha", "Yamaha", "FX Cruiser", 2020, "4-stroke")
+jetski2 = Jetski("2. Bombardier", "Sea-Doo", "GTX", 2021, "4-stroke")
+jetski3 = Jetski("3. Kawasaki", "Kawasaki", "Ultra 310LX", 2022, "Supercharged")
+user1 = Customer("Jawad", "jawad@gmail.com", "0988936914", "100000$")
+user2 = Customer("Zain", "zain@gmail.com", "0988936915", "1500000$")
+
+purchase_history = PurchaseHistory()
+purchase1 = Purchase(user1, car1)
+purchase1.process_purchase()
+purchase_history.add_purchase(purchase1)
+
+purchase2 = Purchase(user2, plane1)
+purchase2.process_purchase()
+purchase_history.add_purchase(purchase2)
+
+purchase_history.print_history()
+
+all_vehicles = [car1, car2, car3, car4, plane1, plane2, plane3, jetski1, jetski2, jetski3]
+for vehicle in all_vehicles:
+    print(vehicle)
